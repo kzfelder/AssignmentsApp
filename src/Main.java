@@ -2,6 +2,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static java.lang.Math.abs;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class Main
 {
 
@@ -29,7 +32,9 @@ public class Main
         DayOfWeek dayOfWeekBorn = birthDate.getDayOfWeek();
         System.out.println("Day of week born: " + dayOfWeekBorn);
 
-        // TODO Output the number of days been alive
+        // Output the number of days been alive
+        long daysAlive = getRangeInDays(today,birthDate);
+        System.out.println("Days alive: " + daysAlive);
 
         // TODO Output the number of days between two dates
 
@@ -60,6 +65,10 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+    private static long getRangeInDays(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
+    {
+        return abs(dateTimeOne.until(dateTimeTwo, DAYS));
     }
 
     private static LocalDateTime addWeeksToDateTime(LocalDateTime dateTime, int numWeeks)
