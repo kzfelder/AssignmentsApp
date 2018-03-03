@@ -42,7 +42,16 @@ public class Main
         long numDaysBetweenDates = getRangeInDays(randomDate, tomorrow);
         System.out.println("Number of days between " + randomDate + " and " + tomorrow + ": " + numDaysBetweenDates);
 
-        // TODO Given two dates, output the earlier..
+        // Given two dates, output the earlier..
+        LocalDateTime earlierDate = getEarlierDate(randomDate,tomorrow);
+        if (earlierDate.equals(null))
+        {
+            System.out.println("Earlier date: Neither. Same dates.");
+        }
+        else
+        {
+            System.out.println("Earlier date: " + earlierDate);
+        }
 
         // TODO Create a file with 100 random "month/day/year  hour:minutes" (in that format) on each line
 
@@ -70,6 +79,20 @@ public class Main
 
         // TODO Output a date in the format "January 1st, 2018"
     }
+
+    private static LocalDateTime getEarlierDate(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
+    {
+        if(dateTimeOne.compareTo(dateTimeTwo) == 0)
+        {
+            return null;
+        }
+        else if (dateTimeOne.isBefore(dateTimeTwo))
+        {
+            return dateTimeOne;
+        }
+        return dateTimeTwo;
+    }
+
     private static LocalDateTime getRandomDateSinceEpoch()
     {
         int epochYear = 1970;
