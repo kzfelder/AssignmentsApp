@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,7 +25,9 @@ public class Main
         // Initialize a LocalDateTime object to birthdate and the time 12:35 PM
         LocalDateTime birthDate = LocalDateTime.of(1998,12,23,12,35);
 
-        // TODO Output the day of the week (Sunday-Saturday) born
+        // Output the day of the week (Sunday-Saturday) born
+        DayOfWeek dayOfWeekBorn = birthDate.getDayOfWeek();
+        System.out.println("Day of week born: " + dayOfWeekBorn);
 
         // TODO Output the number of days been alive
 
