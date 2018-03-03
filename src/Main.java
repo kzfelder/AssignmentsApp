@@ -1,6 +1,7 @@
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import static java.lang.Math.abs;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -36,7 +37,10 @@ public class Main
         long daysAlive = getRangeInDays(today,birthDate);
         System.out.println("Days alive: " + daysAlive);
 
-        // TODO Output the number of days between two dates
+        // Output the number of days between two dates
+        LocalDateTime randomDate = getRandomDateSinceEpoch();
+        long numDaysBetweenDates = getRangeInDays(randomDate, tomorrow);
+        System.out.println("Number of days between " + randomDate + " and " + tomorrow + ": " + numDaysBetweenDates);
 
         // TODO Given two dates, output the earlier..
 
@@ -66,6 +70,13 @@ public class Main
 
         // TODO Output a date in the format "January 1st, 2018"
     }
+    private static LocalDateTime getRandomDateSinceEpoch()
+    {
+        int epochYear = 1970;
+        Random rand = new Random();
+        return LocalDateTime.of(rand.nextInt((LocalDateTime.now().getYear()) - epochYear)+epochYear,rand.nextInt(11)+1,rand.nextInt(31),rand.nextInt(23),rand.nextInt(59),rand.nextInt(60));
+    }
+
     private static long getRangeInDays(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
     {
         return abs(dateTimeOne.until(dateTimeTwo, DAYS));
