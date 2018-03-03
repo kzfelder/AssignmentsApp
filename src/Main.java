@@ -21,7 +21,8 @@ public class Main
         LocalDateTime fiveWeeksFromToday = addWeeksToDateTime(today, 5);
         System.out.println("5 weeks from today: " + dateTimeFormatter(fiveWeeksFromToday));
 
-        // TODO Initialize a LocalDateTime object to birthdate and the time 12:35 PM
+        // Initialize a LocalDateTime object to birthdate and the time 12:35 PM
+        LocalDateTime birthDate = LocalDateTime.of(1998,12,23,12,35);
 
         // TODO Output the day of the week (Sunday-Saturday) born
 
