@@ -84,7 +84,8 @@ public class Main
 
         // TODO Count the number of duplicates in a sorted list without using a Java Set
 
-        // TODO Count the number of evening (after 6pm) dates
+        // Count the number of evening (after 6pm) dates
+        countEveningDates(fileDataArrayList);
 
         // TODO Count the number of dates in each of the individual 12 months without using a Java Map
 
@@ -95,6 +96,28 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static int countEveningDates(ArrayList<LocalDateTime> fileDataArrayList)
+    {
+        int count = 0;
+
+        for (int i = 0; i < fileDataArrayList.size(); i++)
+        {
+            if (fileDataArrayList.get(i).getHour() == 18)
+            {
+                if (fileDataArrayList.get(i).getMinute() > 0)
+                {
+                    count++;
+                }
+            }
+            else if (fileDataArrayList.get(i).getHour() > 18)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private static void sortDatesChronologically(ArrayList<LocalDateTime> fileDataArrayList)
@@ -116,6 +139,7 @@ public class Main
     private static int countDuplicates(ArrayList<LocalDateTime> dates)
     {
         int count = 0;
+
         Set<LocalDateTime> dateSet = new HashSet<>();
         for (int i = 0; i < dates.size(); i++)
         {
@@ -128,6 +152,7 @@ public class Main
                 dateSet.add(dates.get(i));
             }
         }
+
         return count;
     }
 
@@ -136,6 +161,7 @@ public class Main
         int count = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
         File infile = new File(fileName);
+
         try(Scanner sc = new Scanner(infile))
         {
             while(sc.hasNext())
@@ -149,6 +175,7 @@ public class Main
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         return count;
     }
 
@@ -157,6 +184,7 @@ public class Main
         ArrayList<LocalDateTime> datesWithYear = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
         File infile = new File(fileName);
+
         try(Scanner sc = new Scanner(infile))
         {
             while(sc.hasNext())
@@ -170,6 +198,7 @@ public class Main
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         return datesWithYear;
     }
 
@@ -178,6 +207,7 @@ public class Main
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
         ArrayList<LocalDateTime> fileData = new ArrayList<>();
         File infile = new File(fileName);
+
         try(Scanner sc = new Scanner(infile))
         {
             while(sc.hasNext())
@@ -188,12 +218,14 @@ public class Main
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         return fileData;
     }
 
     private static void createFileWithNumDates(String fileName, int numDates)
     {
         File outfile = new File(fileName);
+
         try(PrintWriter pw = new PrintWriter(outfile))
         {
             for (int i = 0; i < numDates; i++)
