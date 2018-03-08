@@ -79,7 +79,8 @@ public class Main
         // Count the number of duplicates
         countDuplicates(fileDataArrayList);
 
-        // TODO Sort the dates in chronological order
+        // Sort the dates in chronological order
+        sortDatesChronologically(fileDataArrayList);
 
         // TODO Count the number of duplicates in a sorted list without using a Java Set
 
@@ -94,6 +95,22 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static void sortDatesChronologically(ArrayList<LocalDateTime> fileDataArrayList)
+    {
+        for (int i = 0; i < fileDataArrayList.size(); i++)
+        {
+            for (int j = 0; j < fileDataArrayList.size(); j++)
+            {
+                if (fileDataArrayList.get(j).isAfter(fileDataArrayList.get(i)))
+                {
+                    LocalDateTime temp = fileDataArrayList.get(j);
+                    fileDataArrayList.set(j, fileDataArrayList.get(i));
+                    fileDataArrayList.set(i, temp);
+                }
+            }
+        }
     }
 
     private static int countDuplicates(ArrayList<LocalDateTime> dates)
