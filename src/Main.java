@@ -82,7 +82,9 @@ public class Main
         // Sort the dates in chronological order
         sortDatesChronologically(fileDataArrayList);
 
-        // TODO Count the number of duplicates in a sorted list without using a Java Set
+        // Count the number of duplicates in a sorted list without using a Java Set
+        // sortDatesChronologically(fileDataArrayList);
+        countNumDuplicatesInSortedLs(fileDataArrayList);
 
         // Count the number of evening (after 6pm) dates
         countEveningDates(fileDataArrayList);
@@ -97,6 +99,24 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static int countNumDuplicatesInSortedLs(ArrayList<LocalDateTime> fileDataArrayList)
+    {
+        int count = 0;
+        for (int i = 0; i < fileDataArrayList.size(); i++)
+        {
+            if (fileDataArrayList.get(i).equals(fileDataArrayList.get(i + 1)))
+            {
+                count++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return count;
     }
 
     private static Map<Integer, Integer> countDatesInEachMonth(ArrayList<LocalDateTime> fileDataArrayList)
