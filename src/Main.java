@@ -1,4 +1,9 @@
+import jdk.nashorn.internal.parser.Scanner;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
@@ -57,12 +62,8 @@ public class Main
             System.out.println("These are the same dates.");
         }
 
-        // TODO Create a file with 100 random "month/day/year  hour:minutes" (in that format) on each line
-        LocalDateTime test = tomorrow;
-        for (int i = 0; i < 5; i++)
-        {
-            Files.write(Paths.get("C:\\Users\\kyrah\\IdeaProjects\\AssignmentsApp\\src\\test"), Collections.singleton(dateTimeFormatter(test)));
-        }
+        // Create a file with 100 random "month/day/year  hour:minutes" (in that format) on each line
+        createFileWithNumDates("hunnidRandomDates.txt", 100);
 
         // TODO Store data from the file into an ArrayList of LocalDateTime objects
 
@@ -87,6 +88,22 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static void createFileWithNumDates(String fileName, int numDates)
+    {
+        File file = new File(fileName);
+        try( PrintWriter pw = new PrintWriter(file) )
+        {
+            for (int i = 0; i < numDates; i++)
+            {
+                LocalDateTime randomDate = getRandomDate();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+                pw.println(randomDate.format(formatter));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private static LocalDateTime getEarlierDate(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
