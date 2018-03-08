@@ -8,10 +8,12 @@ import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.incrementExact;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Main
@@ -126,7 +128,57 @@ public class Main
         ArrayList<Integer> indexesOfEarliest = findIndexesOfDatesWithTime(earlyDateTime, fileDataArrayList);
         System.out.println("\nIndexes of Earliest Start Times: " + indexesOfEarliest);
 
-        // TODO Output a date in the format "January 1st, 2018"
+        // Output a date in the format "January 1st, 2018"
+        System.out.println(newFormatter(LocalDate.of(2018,1,1)));
+    }
+
+    private static String getCorrectSuffix(LocalDate date)
+    {
+        ArrayList<String> suffixes = new ArrayList<>();
+
+        suffixes.add("st");
+        suffixes.add("nd");
+        suffixes.add("rd");
+        suffixes.add("th");
+
+        if (date.getDayOfMonth() <= 20 && date.getDayOfMonth() >= 10)
+        {
+            return suffixes.get(3);
+        }
+        else
+        {
+            int lastDigit = date.getDayOfMonth()%10;
+            if (lastDigit == 1)
+            {
+                return suffixes.get(0);
+            }
+            else if (lastDigit == 2)
+            {
+                return suffixes.get(1);
+            }
+            else if (lastDigit == 3)
+            {
+                return suffixes.get(2);
+            }
+        }
+        return suffixes.get(3);
+    }
+
+    private static String newFormatter(LocalDate date)
+    {
+        DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MMMM");
+        String month = date.format(monthFormat);
+
+        DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("d");
+        String day = date.format(dayFormat);
+
+        int year = date.getYear();
+
+        String format = "";
+        String suffix = getCorrectSuffix(date);
+        format = month + " " + day + suffix + ", " + year;
+
+        return format;
     }
 
     private static ArrayList<Integer> findIndexesOfDatesWithTime(LocalDateTime dateTime, ArrayList<LocalDateTime> dateList)
