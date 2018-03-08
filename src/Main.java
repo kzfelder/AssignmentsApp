@@ -89,13 +89,39 @@ public class Main
 
         // TODO Count the number of dates in each of the individual 12 months without using a Java Map
 
-        // TODO Count the number of dates in each of the individual 12 months using a Java Map
+        // Count the number of dates in each of the individual 12 months using a Java Map
+        countDatesInEachMonth(fileDataArrayList);
 
         // TODO Determine the index of the latest LocalDateTime
 
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static Map<Integer, Integer> countDatesInEachMonth(ArrayList<LocalDateTime> fileDataArrayList)
+    {
+        Map<Integer, Integer> mapOfDatesInMonths = new HashMap<>();
+        ArrayList<Integer> months = new ArrayList<>();
+        for (int i = 0; i < 12; i++)
+        {
+            months.add(i+1);
+        }
+        for (int month : months)
+        {
+            int count = 0;
+            for (int i = 0; i < fileDataArrayList.size(); i++)
+            {
+                if (fileDataArrayList.get(i).getMonthValue() == month)
+                {
+                    count++;
+                }
+
+            }
+            mapOfDatesInMonths.putIfAbsent(month, count);
+        }
+        System.out.println(mapOfDatesInMonths);
+        return mapOfDatesInMonths;
     }
 
     private static int countEveningDates(ArrayList<LocalDateTime> fileDataArrayList)
