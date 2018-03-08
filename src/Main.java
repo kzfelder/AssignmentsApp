@@ -81,9 +81,10 @@ public class Main
 
         // Sort the dates in chronological order
         sortDatesChronologically(fileDataArrayList);
+        System.out.println("\nSorted Dates: " + fileDataArrayList);
 
         // Count the number of duplicates in a sorted list without using a Java Set
-        // sortDatesChronologically(fileDataArrayList);
+        //sortDatesChronologically(fileDataArrayList);
         countNumDuplicatesInSortedLs(fileDataArrayList);
 
         // Count the number of evening (after 6pm) dates
@@ -120,9 +121,48 @@ public class Main
         //System.out.println("\nLatest date: " + latestDateTime);
         System.out.println("\nIndex of latest: " + indexOfDate);
 
-        // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
+        // Determine the indexes of the elements that have the earliest starting time, regardless of date
+        LocalDateTime earlyDateTime = findEarliestDateTime(fileDataArrayList);
+        ArrayList<Integer> indexesOfEarliest = findIndexesOfDatesWithTime(earlyDateTime, fileDataArrayList);
+        System.out.println("\nIndexes of Earliest Start Times: " + indexesOfEarliest);
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static ArrayList<Integer> findIndexesOfDatesWithTime(LocalDateTime dateTime, ArrayList<LocalDateTime> dateList)
+    {
+        int hour = dateTime.getHour();
+        int minute = dateTime.getMinute();
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < dateList.size(); i++)
+        {
+            if (dateList.get(i).getHour() == hour)
+            {
+                if (dateList.get(i).getMinute() == minute)
+                {
+                    indexes.add(i);
+                }
+            }
+        }
+
+        return indexes;
+    }
+
+    private static LocalDateTime findEarliestDateTime(ArrayList<LocalDateTime> dateList)
+    {
+        LocalDateTime earliestDate = dateList.get(0);
+        for (int i = 1; i < dateList.size(); i++)
+        {
+            if (dateList.get(i).getHour() < earliestDate.getHour())
+            {
+                if (dateList.get(i).getMinute() < earliestDate.getMinute())
+                {
+                    earliestDate = dateList.get(i);
+                }
+            }
+        }
+
+        return earliestDate;
     }
 
     private static int getIndexOfDateTime(LocalDateTime dateTime, ArrayList<LocalDateTime> dateList)
