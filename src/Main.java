@@ -114,19 +114,50 @@ public class Main
         }
         System.out.println("Map: " + mapOfDatesInMonths);
 
-        // TODO Determine the index of the latest LocalDateTime
+        // Determine the index of the latest LocalDateTime
+        LocalDateTime latestDateTime = findDateTimeOfLatest(fileDataArrayList);
+        int indexOfDate = getIndexOfDateTime(latestDateTime, fileDataArrayList);
+        //System.out.println("\nLatest date: " + latestDateTime);
+        System.out.println("\nIndex of latest: " + indexOfDate);
 
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
     }
 
-    private static int countNumDuplicatesInSortedLs(ArrayList<LocalDateTime> fileDataArrayList)
+    private static int getIndexOfDateTime(LocalDateTime dateTime, ArrayList<LocalDateTime> dateList)
+    {
+        int index = 0;
+        for (int i = 0; i < dateList.size(); i++)
+        {
+            if (dateList.get(i).equals(dateTime))
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private static LocalDateTime findDateTimeOfLatest(ArrayList<LocalDateTime> dateList)
+    {
+        LocalDateTime latest = dateList.get(0);
+        for (int i = 1; i < dateList.size(); i++)
+        {
+            if (dateList.get(i).isAfter(latest))
+            {
+                latest = dateList.get(i);
+            }
+        }
+
+        return latest;
+    }
+
+    private static int countNumDuplicatesInSortedLs(ArrayList<LocalDateTime> dateList)
     {
         int count = 0;
-        for (int i = 0; i < fileDataArrayList.size(); i++)
+        for (int i = 0; i < dateList.size(); i++)
         {
-            if (fileDataArrayList.get(i).equals(fileDataArrayList.get(i + 1)))
+            if (dateList.get(i).equals(dateList.get(i + 1)))
             {
                 count++;
             }
@@ -139,12 +170,12 @@ public class Main
         return count;
     }
 
-    private static int countDatesInMonth(int month, ArrayList<LocalDateTime> fileDataArrayList)
+    private static int countDatesInMonth(int month, ArrayList<LocalDateTime> dateList)
     {
         int count = 0;
-        for (int i = 0; i < fileDataArrayList.size(); i++)
+        for (int i = 0; i < dateList.size(); i++)
         {
-            if (fileDataArrayList.get(i).getMonthValue() == month)
+            if (dateList.get(i).getMonthValue() == month)
             {
                 count++;
             }
@@ -163,20 +194,20 @@ public class Main
         return months;
     }
 
-    private static int countEveningDates(ArrayList<LocalDateTime> fileDataArrayList)
+    private static int countEveningDates(ArrayList<LocalDateTime> dateList)
     {
         int count = 0;
 
-        for (int i = 0; i < fileDataArrayList.size(); i++)
+        for (int i = 0; i < dateList.size(); i++)
         {
-            if (fileDataArrayList.get(i).getHour() == 18)
+            if (dateList.get(i).getHour() == 18)
             {
-                if (fileDataArrayList.get(i).getMinute() > 0)
+                if (dateList.get(i).getMinute() > 0)
                 {
                     count++;
                 }
             }
-            else if (fileDataArrayList.get(i).getHour() > 18)
+            else if (dateList.get(i).getHour() > 18)
             {
                 count++;
             }
@@ -185,17 +216,17 @@ public class Main
         return count;
     }
 
-    private static void sortDatesChronologically(ArrayList<LocalDateTime> fileDataArrayList)
+    private static void sortDatesChronologically(ArrayList<LocalDateTime> dateList)
     {
-        for (int i = 0; i < fileDataArrayList.size(); i++)
+        for (int i = 0; i < dateList.size(); i++)
         {
-            for (int j = 0; j < fileDataArrayList.size(); j++)
+            for (int j = 0; j < dateList.size(); j++)
             {
-                if (fileDataArrayList.get(j).isAfter(fileDataArrayList.get(i)))
+                if (dateList.get(j).isAfter(dateList.get(i)))
                 {
-                    LocalDateTime temp = fileDataArrayList.get(j);
-                    fileDataArrayList.set(j, fileDataArrayList.get(i));
-                    fileDataArrayList.set(i, temp);
+                    LocalDateTime temp = dateList.get(j);
+                    dateList.set(j, dateList.get(i));
+                    dateList.set(i, temp);
                 }
             }
         }
