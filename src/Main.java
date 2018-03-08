@@ -87,12 +87,32 @@ public class Main
         countNumDuplicatesInSortedLs(fileDataArrayList);
 
         // Count the number of evening (after 6pm) dates
+        // TODO UPDATE FUNCTION BY COUNT DATES BY TIME
         countEveningDates(fileDataArrayList);
 
-        // TODO Count the number of dates in each of the individual 12 months without using a Java Map
+        // Count the number of dates in each of the individual 12 months without using a Java Map
+        ArrayList<Integer> numDatesOfMonth = new ArrayList<>();
+        ArrayList<Integer> months = monthsArrayLs();
+        numDatesOfMonth.add(0);
+        for (int month: months)
+        {
+            if (month > 0)
+            {
+                numDatesOfMonth.add(countDatesInMonth(month,fileDataArrayList));
+            }
+        }
+        System.out.println("\nArrayLs: " + numDatesOfMonth);
+
 
         // Count the number of dates in each of the individual 12 months using a Java Map
-        countDatesInEachMonth(fileDataArrayList);
+        Map<Integer, Integer> mapOfDatesInMonths = new HashMap<>();
+        for (int month : months)
+        {
+            int count = countDatesInMonth(month, fileDataArrayList);
+            mapOfDatesInMonths.putIfAbsent(month, count);
+            mapOfDatesInMonths.remove(0);
+        }
+        System.out.println("Map: " + mapOfDatesInMonths);
 
         // TODO Determine the index of the latest LocalDateTime
 
@@ -119,29 +139,28 @@ public class Main
         return count;
     }
 
-    private static Map<Integer, Integer> countDatesInEachMonth(ArrayList<LocalDateTime> fileDataArrayList)
+    private static int countDatesInMonth(int month, ArrayList<LocalDateTime> fileDataArrayList)
     {
-        Map<Integer, Integer> mapOfDatesInMonths = new HashMap<>();
-        ArrayList<Integer> months = new ArrayList<>();
-        for (int i = 0; i < 12; i++)
+        int count = 0;
+        for (int i = 0; i < fileDataArrayList.size(); i++)
         {
-            months.add(i+1);
-        }
-        for (int month : months)
-        {
-            int count = 0;
-            for (int i = 0; i < fileDataArrayList.size(); i++)
+            if (fileDataArrayList.get(i).getMonthValue() == month)
             {
-                if (fileDataArrayList.get(i).getMonthValue() == month)
-                {
-                    count++;
-                }
-
+                count++;
             }
-            mapOfDatesInMonths.putIfAbsent(month, count);
+
         }
-        System.out.println(mapOfDatesInMonths);
-        return mapOfDatesInMonths;
+        return count;
+    }
+
+    private static ArrayList<Integer> monthsArrayLs()
+    {
+        ArrayList<Integer> months = new ArrayList<>();
+        for (int i = 0; i < 13; i++)
+        {
+            months.add(i);
+        }
+        return months;
     }
 
     private static int countEveningDates(ArrayList<LocalDateTime> fileDataArrayList)
