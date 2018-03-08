@@ -69,7 +69,10 @@ public class Main
         // Store data from the file into an ArrayList of LocalDateTime objects
         ArrayList<LocalDateTime> fileDataArrayList = storeFileDataToArrayList("hunnidRandomDates.txt");
 
-        // TODO Output the number of stored dates in the year [Y]
+        // Output the number of stored dates in the year [Y]
+        int year = 2016;
+        ArrayList<LocalDateTime> datesOfYear = getDatesInFileWithYear("hunnidRandomDates.txt", year);
+        System.out.println("\nDates in " + year + ": " + datesOfYear);
 
         // TODO Count the number of stored dates in the current year
 
@@ -90,6 +93,27 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static ArrayList<LocalDateTime> getDatesInFileWithYear(String fileName, int year)
+    {
+        ArrayList<LocalDateTime> datesWithYear = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+        File infile = new File(fileName);
+        try(Scanner sc = new Scanner(infile))
+        {
+            while(sc.hasNext())
+            {
+                LocalDateTime date = LocalDateTime.parse(sc.nextLine(),formatter);
+                if(date.getYear() == year)
+                {
+                    datesWithYear.add(date);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return datesWithYear;
     }
 
     private static ArrayList<LocalDateTime> storeFileDataToArrayList(String fileName)
