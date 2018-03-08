@@ -90,8 +90,7 @@ public class Main
         countNumDuplicatesInSortedLs(fileDataArrayList);
 
         // Count the number of evening (after 6pm) dates
-        // TODO UPDATE FUNCTION BY COUNT DATES BY TIME
-        countEveningDates(fileDataArrayList);
+        countDatesAfterTime(fileDataArrayList, 18);
 
         // Count the number of dates in each of the individual 12 months without using a Java Map
         ArrayList<Integer> numDatesOfMonth = new ArrayList<>();
@@ -286,20 +285,20 @@ public class Main
         return months;
     }
 
-    private static int countEveningDates(ArrayList<LocalDateTime> dateList)
+    private static int countDatesAfterTime(ArrayList<LocalDateTime> dateList, int time)
     {
         int count = 0;
 
         for (int i = 0; i < dateList.size(); i++)
         {
-            if (dateList.get(i).getHour() == 18)
+            if (dateList.get(i).getHour() == time)
             {
                 if (dateList.get(i).getMinute() > 0)
                 {
                     count++;
                 }
             }
-            else if (dateList.get(i).getHour() > 18)
+            else if (dateList.get(i).getHour() > time)
             {
                 count++;
             }
