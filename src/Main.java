@@ -1,4 +1,3 @@
-import jdk.nashorn.internal.parser.Scanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,8 +8,10 @@ import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 import static java.lang.Math.abs;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -39,7 +40,7 @@ public class Main
 
         // Output the day of the week (Sunday-Saturday) born
         DayOfWeek dayOfWeekBorn = birthDate.getDayOfWeek();
-        System.out.println("Day of week born: " + dayOfWeekBorn);
+        System.out.println("\nDay of week born: " + dayOfWeekBorn);
 
         // Output the number of days been alive
         long daysAlive = getRangeInDays(today,birthDate);
@@ -47,7 +48,7 @@ public class Main
 
         // Output the number of days between two dates
         LocalDateTime randomDate = getRandomDate();
-        System.out.println("Random date: " + randomDate);
+        System.out.println("\nRandom date: " + randomDate);
         long numDaysBetweenDates = getRangeInDays(randomDate, tomorrow);
         System.out.println("Number of days between " + randomDate + " and " + tomorrow + ": " + numDaysBetweenDates);
 
@@ -65,7 +66,8 @@ public class Main
         // Create a file with 100 random "month/day/year  hour:minutes" (in that format) on each line
         createFileWithNumDates("hunnidRandomDates.txt", 100);
 
-        // TODO Store data from the file into an ArrayList of LocalDateTime objects
+        // Store data from the file into an ArrayList of LocalDateTime objects
+        ArrayList<LocalDateTime> fileDataArrayList = storeFileDataToArrayList("hunnidRandomDates.txt");
 
         // TODO Output the number of stored dates in the year [Y]
 
@@ -90,10 +92,28 @@ public class Main
         // TODO Output a date in the format "January 1st, 2018"
     }
 
+    private static ArrayList<LocalDateTime> storeFileDataToArrayList(String fileName)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+        ArrayList<LocalDateTime> fileData = new ArrayList<>();
+        File infile = new File(fileName);
+        try(Scanner sc = new Scanner(infile))
+        {
+            while(sc.hasNext())
+            {
+                LocalDateTime data = LocalDateTime.parse(sc.nextLine(),formatter);
+                fileData.add(data);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fileData;
+    }
+
     private static void createFileWithNumDates(String fileName, int numDates)
     {
-        File file = new File(fileName);
-        try( PrintWriter pw = new PrintWriter(file) )
+        File outfile = new File(fileName);
+        try(PrintWriter pw = new PrintWriter(outfile))
         {
             for (int i = 0; i < numDates; i++)
             {
