@@ -1,6 +1,10 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Random;
 
 import static java.lang.Math.abs;
@@ -9,8 +13,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Main
 {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         System.out.println("\n\nHello, AssignmentsApp!\n");
 
         //Output the current date-time
@@ -38,22 +41,28 @@ public class Main
         System.out.println("Days alive: " + daysAlive);
 
         // Output the number of days between two dates
-        LocalDateTime randomDate = getRandomDateSinceEpoch();
+        LocalDateTime randomDate = getRandomDate();
+        System.out.println("Random date: " + randomDate);
         long numDaysBetweenDates = getRangeInDays(randomDate, tomorrow);
         System.out.println("Number of days between " + randomDate + " and " + tomorrow + ": " + numDaysBetweenDates);
 
         // Given two dates, output the earlier..
         LocalDateTime earlierDate = getEarlierDate(randomDate,tomorrow);
-        if (earlierDate.equals(null))
-        {
-            System.out.println("Earlier date: Neither. Same dates.");
-        }
-        else
+        if(earlierDate.equals(randomDate) || earlierDate.equals(tomorrow))
         {
             System.out.println("Earlier date: " + earlierDate);
         }
+        else
+        {
+            System.out.println("These are the same dates.");
+        }
 
         // TODO Create a file with 100 random "month/day/year  hour:minutes" (in that format) on each line
+        LocalDateTime test = tomorrow;
+        for (int i = 0; i < 5; i++)
+        {
+            Files.write(Paths.get("C:\\Users\\kyrah\\IdeaProjects\\AssignmentsApp\\src\\test"), Collections.singleton(dateTimeFormatter(test)));
+        }
 
         // TODO Store data from the file into an ArrayList of LocalDateTime objects
 
@@ -82,22 +91,17 @@ public class Main
 
     private static LocalDateTime getEarlierDate(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
     {
-        if(dateTimeOne.compareTo(dateTimeTwo) == 0)
-        {
-            return null;
-        }
-        else if (dateTimeOne.isBefore(dateTimeTwo))
+        if (dateTimeOne.isBefore(dateTimeTwo))
         {
             return dateTimeOne;
         }
         return dateTimeTwo;
     }
 
-    private static LocalDateTime getRandomDateSinceEpoch()
+    private static LocalDateTime getRandomDate()
     {
-        int epochYear = 1970;
         Random rand = new Random();
-        return LocalDateTime.of(rand.nextInt((LocalDateTime.now().getYear()) - epochYear)+epochYear,rand.nextInt(11)+1,rand.nextInt(31),rand.nextInt(23),rand.nextInt(59),rand.nextInt(60));
+        return LocalDateTime.now().plusSeconds(rand.nextInt());
     }
 
     private static long getRangeInDays(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo)
