@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -74,7 +75,9 @@ public class Main
         ArrayList<LocalDateTime> datesOfYear = getDatesInFileWithYear("hunnidRandomDates.txt", year);
         System.out.println("\nDates in " + year + ": " + datesOfYear);
 
-        // TODO Count the number of stored dates in the current year
+        // Count the number of stored dates in the current year
+        countDatesInFileWithYear("hunnidRandomDates.txt", LocalDate.now().getYear());
+        //System.out.println("Dates in " + LocalDate.now().getYear() + ": " + numDatesInCurrentYear);
 
         // TODO Count the number of duplicates
 
@@ -93,6 +96,27 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static int countDatesInFileWithYear(String fileName, int year)
+    {
+        int count = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+        File infile = new File(fileName);
+        try(Scanner sc = new Scanner(infile))
+        {
+            while(sc.hasNext())
+            {
+                LocalDateTime date = LocalDateTime.parse(sc.nextLine(),formatter);
+                if(date.getYear() == year)
+                {
+                    count++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
     private static ArrayList<LocalDateTime> getDatesInFileWithYear(String fileName, int year)
