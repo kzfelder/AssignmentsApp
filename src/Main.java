@@ -9,10 +9,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.Math.abs;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -79,7 +76,8 @@ public class Main
         countDatesInFileWithYear("hunnidRandomDates.txt", LocalDate.now().getYear());
         //System.out.println("Dates in " + LocalDate.now().getYear() + ": " + numDatesInCurrentYear);
 
-        // TODO Count the number of duplicates
+        // Count the number of duplicates
+        countDuplicates(fileDataArrayList);
 
         // TODO Sort the dates in chronological order
 
@@ -96,6 +94,24 @@ public class Main
         // TODO Determine the indexes of the elements that have the earliest starting time, regardless of date
 
         // TODO Output a date in the format "January 1st, 2018"
+    }
+
+    private static int countDuplicates(ArrayList<LocalDateTime> dates)
+    {
+        int count = 0;
+        Set<LocalDateTime> dateSet = new HashSet<>();
+        for (int i = 0; i < dates.size(); i++)
+        {
+            if(dateSet.contains(dates.get(i)))
+            {
+                count++;
+            }
+            else
+            {
+                dateSet.add(dates.get(i));
+            }
+        }
+        return count;
     }
 
     private static int countDatesInFileWithYear(String fileName, int year)
