@@ -129,6 +129,23 @@ public class Main
 
         // Output a date in the format "January 1st, 2018"
         System.out.println(newFormatter(LocalDate.of(2018,1,1)));
+
+        // Define and use a DayOfWeek enumerated type
+        Day tgif = Day.FRIDAY;
+        testEnumDay(tgif);
+
+        //todo Define and use a Course enumerated type
+        //todo Define and use a Category enumerated type
+    }
+    private static void testEnumDay(Day day)
+    {
+        for (Day days : Day.values())
+        {
+            if (days.equals(day))
+            {
+                System.out.println("Day entered was: " + day);
+            }
+        }
     }
 
     private static String getCorrectSuffix(LocalDate date)
