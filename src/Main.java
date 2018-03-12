@@ -130,13 +130,74 @@ public class Main
         // Output a date in the format "January 1st, 2018"
         System.out.println(newFormatter(LocalDate.of(2018,1,1)));
 
-        // Define and use a DayOfWeek enumerated type
-        Day tgif = Day.FRIDAY;
-        testEnumDay(tgif);
 
-        //todo Define and use a Course enumerated type
-        //todo Define and use a Category enumerated type
+        System.out.println("\n");
+        // Define and use a DayOfWeek enumerated type
+        Day day = Day.FRIDAY;
+        testEnumDay(day);
+
+        // Define and use a Course enumerated type
+        Course course = Course.CPSC;
+        testEnumCourse(course);
+
+        // Define and use a Category enumerated type
+        Category category = Category.PRESENTATION;
+        testEnumCategory(category);
+
     }
+
+    private static void testEnumCategory(Category category)
+    {
+        if (category.equals(Category.FINAL_EXAM))
+        {
+            System.out.println(category + ": Rest up, don't stress!");
+        }
+        else if (category.equals(Category.HOMEWORK))
+        {
+            System.out.println(category + ": Make sure you complete homework early so you can ask your professor about any questions you have!");
+        }
+        else if (category.equals(Category.PRESENTATION))
+        {
+            System.out.println(category + ": Be sure to review and revise your slides.");
+        }
+        else if (category.equals(Category.TEST))
+        {
+            System.out.println(category + ": Study your sections and homework, do your best!");
+        }
+        else if (category.equals(Category.QUIZ))
+        {
+            System.out.println(category + ": Don't be fooled by the size, every point counts!");
+        }
+    }
+
+    private static void testEnumCourse(Course course)
+    {
+        if (course.equals(Course.CPSC))
+        {
+            System.out.println(course + ": 3 hours");
+        }
+        else if (course.equals(Course.ENGL))
+        {
+            System.out.println(course + ": 3 hours");
+        }
+        else if (course.equals(Course.ENGR))
+        {
+            System.out.println(course + ": 2 hours");
+        }
+        else if (course.equals(Course.FRSM))
+        {
+            System.out.println(course + ": 1 hour");
+        }
+        else if (course.equals(Course.MATH))
+        {
+            System.out.println(course + ": 3 hours");
+        }
+        else if (course.equals(Course.SPAN))
+        {
+            System.out.println(course + ": 3 hours");
+        }
+    }
+
     private static void testEnumDay(Day day)
     {
         for (Day days : Day.values())
