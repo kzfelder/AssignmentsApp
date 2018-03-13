@@ -18,6 +18,22 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Main
 {
+    public enum Course
+    {
+        MATH,CPSC, ENGR, ENGL, SPAN, FRSM
+    }
+
+    public enum Category
+    {
+        HOMEWORK, QUIZ, TEST, PRESENTATION, FINAL_EXAM
+    }
+
+    public enum Day
+    {
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+        THURSDAY, FRIDAY, SATURDAY
+    }
+
 
     public static void main(String[] args) throws IOException {
         System.out.println("\n\nHello, AssignmentsApp!\n");
