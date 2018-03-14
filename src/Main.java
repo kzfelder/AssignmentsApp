@@ -164,9 +164,11 @@ public class Main
         Priority level2 = new Priority(rand.nextInt(4));
         Assignment assign1 = new Assignment(today, Course.CPSC, Category.PRESENTATION, level);
         Assignment assign2 = new Assignment(tomorrow, Course.MATH, Category.HOMEWORK, level2);
-        System.out.println("\nAssign1: " + assign1 + "\nAssign2: " +assign2);
+        System.out.println("\nassign1: " + assign1 + "\nassign2: " +assign2);
 
-        //todo Copy assign1 to assign3
+        // Copy assign1 to assign3
+        Assignment assign3 = copyAssignToNew(assign1);
+        System.out.println("\nassign3: " + assign3);
 
         //todo Override an Assignment.equals() method
 
@@ -174,6 +176,12 @@ public class Main
 
         //todo Which of assign1, assign2, or assign3 is the earliest?
 
+    }
+
+    private static Assignment copyAssignToNew(Assignment assign1)
+    {
+        Assignment newAssign = new Assignment(assign1.getDateTime(), assign1.getCourse(), assign1.getCategory(), assign1.getLevel());
+        return newAssign;
     }
 
     private static void testEnumCategory(Category category)
