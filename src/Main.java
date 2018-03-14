@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,7 +32,6 @@ public class Main
         SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
         THURSDAY, FRIDAY, SATURDAY
     }
-
 
     public static void main(String[] args) throws IOException {
         System.out.println("\n\nHello, AssignmentsApp!\n");
@@ -159,6 +157,22 @@ public class Main
         // Define and use a Category enumerated type
         Category category = Category.PRESENTATION;
         testEnumCategory(category);
+
+        // In the driver, generate 2 random assignments named assign1 and assign2
+        Random rand= new Random();
+        Priority level = new Priority(rand.nextInt(4));
+        Priority level2 = new Priority(rand.nextInt(4));
+        Assignment assign1 = new Assignment(today, Course.CPSC, Category.PRESENTATION, level);
+        Assignment assign2 = new Assignment(tomorrow, Course.MATH, Category.HOMEWORK, level2);
+        System.out.println("\nAssign1: " + assign1 + "\nAssign2: " +assign2);
+
+        //todo Copy assign1 to assign3
+
+        //todo Override an Assignment.equals() method
+
+        //todo Override an Assignment.compareTo() method then use it to output BEFORE, EQUALS, or AFTER based on the LocalDateTime
+
+        //todo Which of assign1, assign2, or assign3 is the earliest?
 
     }
 
