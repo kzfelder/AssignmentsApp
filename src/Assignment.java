@@ -1,14 +1,28 @@
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class Assignment
 {
+    public enum Course
+    {
+        MATH,CPSC, ENGR, ENGL, SPAN, FRSM
+    }
+
+    public enum Category
+    {
+        HOMEWORK, QUIZ, TEST, PRESENTATION, FINAL_EXAM
+    }
+
+    public enum Day
+    {
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+        THURSDAY, FRIDAY, SATURDAY
+    }
     private LocalDateTime dateTime;
-    private Main.Course course;
-    private Main.Category category;
+    private Course course;
+    private Category category;
     private Priority level;
 
-    public Assignment(LocalDateTime dateTime, Main.Course course, Main.Category category, Priority level)
+    public Assignment(LocalDateTime dateTime, Course course, Category category, Priority level)
     {
         this.dateTime = dateTime;
         this.course = course;
@@ -41,6 +55,19 @@ public class Assignment
                 '}';
     }
 
+    public String compareTo(Assignment rhs)
+    {
+        if (getDateTime().isBefore(rhs.getDateTime()))
+        {
+            return "BEFORE";
+        }
+        if (getDateTime().isAfter(rhs.getDateTime()))
+        {
+            return "AFTER";
+        }
+        return "EQUALS";
+    }
+
     public LocalDateTime getDateTime()
     {
         return dateTime;
@@ -51,22 +78,22 @@ public class Assignment
         this.dateTime = dateTime;
     }
 
-    public Main.Course getCourse()
+    public Course getCourse()
     {
         return course;
     }
 
-    public void setCourse(Main.Course course)
+    public void setCourse(Course course)
     {
         this.course = course;
     }
 
-    public Main.Category getCategory()
+    public Category getCategory()
     {
         return category;
     }
 
-    public void setCategory(Main.Category category)
+    public void setCategory(Category category)
     {
         this.category = category;
     }

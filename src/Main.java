@@ -17,22 +17,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Main
 {
-    public enum Course
-    {
-        MATH,CPSC, ENGR, ENGL, SPAN, FRSM
-    }
-
-    public enum Category
-    {
-        HOMEWORK, QUIZ, TEST, PRESENTATION, FINAL_EXAM
-    }
-
-    public enum Day
-    {
-        SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-        THURSDAY, FRIDAY, SATURDAY
-    }
-
     public static void main(String[] args) throws IOException {
         System.out.println("\n\nHello, AssignmentsApp!\n");
 
@@ -147,21 +131,21 @@ public class Main
 
         System.out.println("\n");
         // Define and use a DayOfWeek enumerated type
-        Day day = Day.FRIDAY;
+        Assignment.Day day = Assignment.Day.FRIDAY;
         testEnumDay(day);
 
         // Define and use a Course enumerated type
-        Course course = Course.CPSC;
+        Assignment.Course course = Assignment.Course.CPSC;
         testEnumCourse(course);
 
         // Define and use a Category enumerated type
-        Category category = Category.PRESENTATION;
+        Assignment.Category category = Assignment.Category.PRESENTATION;
         testEnumCategory(category);
 
         // In the driver, generate 2 random assignments named assign1 and assign2
         Random rand= new Random();
-        Assignment assign1 = new Assignment(getRandomDate(), Course.CPSC, Category.PRESENTATION, new Priority(rand.nextInt(4)));
-        Assignment assign2 = new Assignment(getRandomDate(), Course.MATH, Category.HOMEWORK, new Priority(rand.nextInt(4)));
+        Assignment assign1 = new Assignment(getRandomDate(), Assignment.Course.CPSC, Assignment.Category.PRESENTATION, new Priority(rand.nextInt(4)));
+        Assignment assign2 = new Assignment(getRandomDate(), Assignment.Course.MATH, Assignment.Category.HOMEWORK, new Priority(rand.nextInt(4)));
         System.out.println("\nassign1: " + assign1 + "\nassign2: " +assign2);
 
         // Copy assign1 to assign3
@@ -171,7 +155,8 @@ public class Main
         // Override an Assignment.equals() method
         System.out.println("\nassign1.equals(assign3): " + assign1.equals(assign3) + "\nassign1.equals(assign2): " + assign1.equals(assign2));
 
-        //todo Override an Assignment.compareTo() method then use it to output BEFORE, EQUALS, or AFTER based on the LocalDateTime
+        // Override an Assignment.compareTo() method then use it to output BEFORE, EQUALS, or AFTER based on the LocalDateTime
+        System.out.println("assign1 compared to assign2: " + assign1.compareTo(assign2) + "\nassign1 compared to assign3: " + assign1.compareTo(assign3));
 
         //todo Which of assign1, assign2, or assign3 is the earliest?
 
@@ -183,61 +168,61 @@ public class Main
         return newAssign;
     }
 
-    private static void testEnumCategory(Category category)
+    private static void testEnumCategory(Assignment.Category category)
     {
-        if (category.equals(Category.FINAL_EXAM))
+        if (category.equals(Assignment.Category.FINAL_EXAM))
         {
             System.out.println(category + ": Rest up, don't stress!");
         }
-        else if (category.equals(Category.HOMEWORK))
+        else if (category.equals(Assignment.Category.HOMEWORK))
         {
             System.out.println(category + ": Make sure you complete homework early so you can ask your professor about any questions you have!");
         }
-        else if (category.equals(Category.PRESENTATION))
+        else if (category.equals(Assignment.Category.PRESENTATION))
         {
             System.out.println(category + ": Be sure to review and revise your slides.");
         }
-        else if (category.equals(Category.TEST))
+        else if (category.equals(Assignment.Category.TEST))
         {
             System.out.println(category + ": Study your sections and homework, do your best!");
         }
-        else if (category.equals(Category.QUIZ))
+        else if (category.equals(Assignment.Category.QUIZ))
         {
             System.out.println(category + ": Don't be fooled by the size, every point counts!");
         }
     }
 
-    private static void testEnumCourse(Course course)
+    private static void testEnumCourse(Assignment.Course course)
     {
-        if (course.equals(Course.CPSC))
+        if (course.equals(Assignment.Course.CPSC))
         {
             System.out.println(course + ": 3 hours");
         }
-        else if (course.equals(Course.ENGL))
+        else if (course.equals(Assignment.Course.ENGL))
         {
             System.out.println(course + ": 3 hours");
         }
-        else if (course.equals(Course.ENGR))
+        else if (course.equals(Assignment.Course.ENGR))
         {
             System.out.println(course + ": 2 hours");
         }
-        else if (course.equals(Course.FRSM))
+        else if (course.equals(Assignment.Course.FRSM))
         {
             System.out.println(course + ": 1 hour");
         }
-        else if (course.equals(Course.MATH))
+        else if (course.equals(Assignment.Course.MATH))
         {
             System.out.println(course + ": 3 hours");
         }
-        else if (course.equals(Course.SPAN))
+        else if (course.equals(Assignment.Course.SPAN))
         {
             System.out.println(course + ": 3 hours");
         }
     }
 
-    private static void testEnumDay(Day day)
+    private static void testEnumDay(Assignment.Day day)
     {
-        for (Day days : Day.values())
+        for (Assignment.Day days : Assignment.Day.values())
         {
             if (days.equals(day))
             {
