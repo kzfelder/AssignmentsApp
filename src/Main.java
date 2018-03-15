@@ -158,8 +158,26 @@ public class Main
         // Override an Assignment.compareTo() method then use it to output BEFORE, EQUALS, or AFTER based on the LocalDateTime
         System.out.println("assign1 compared to assign2: " + assign1.compareTo(assign2) + "\nassign1 compared to assign3: " + assign1.compareTo(assign3));
 
-        //todo Which of assign1, assign2, or assign3 is the earliest?
+        // Which of assign1, assign2, or assign3 is the earliest?
+        ArrayList<Assignment> assigns = new ArrayList<>();
+        assigns.add(assign1);
+        assigns.add(assign2);
+        assigns.add(assign3);
+        System.out.println("Earliest Assignment: " + findEarliestAssign(assigns));
 
+    }
+
+    private static Assignment findEarliestAssign(ArrayList<Assignment> assignLs)
+    {
+        Assignment earliest = assignLs.get(0);
+        for ( Assignment assign : assignLs)
+        {
+            if (earliest.compareTo(assign) == "BEFORE")
+            {
+                earliest = assign;
+            }
+        }
+        return earliest;
     }
 
     private static Assignment copyAssignToNew(Assignment assign1)

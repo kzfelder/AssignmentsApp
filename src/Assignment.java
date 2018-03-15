@@ -57,11 +57,11 @@ public class Assignment
 
     public String compareTo(Assignment rhs)
     {
-        if (getDateTime().isBefore(rhs.getDateTime()))
+        if (getDateTime().isAfter(rhs.getDateTime()))
         {
             return "BEFORE";
         }
-        if (getDateTime().isAfter(rhs.getDateTime()))
+        if (getDateTime().isBefore(rhs.getDateTime()))
         {
             return "AFTER";
         }
