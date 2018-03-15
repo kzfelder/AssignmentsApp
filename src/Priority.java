@@ -20,4 +20,8 @@ public class Priority
     public String toString() {
         return String.valueOf(level);
     }
+
+    public int getLevel() {
+        return level;
+    }
 }

@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Assignment
 {
@@ -13,6 +14,21 @@ public class Assignment
         this.course = course;
         this.category = category;
         this.level = level;
+    }
+
+    // Override an Assignment.equals() method
+    @Override
+    public boolean equals(Object rhs)
+    {
+        Assignment temp = (Assignment) rhs;
+        if (getDateTime().equals(temp.getDateTime())
+                && getCourse().equals(temp.getCourse())
+                && getCategory().equals(temp.getCategory())
+                && getLevel().equals(temp.getLevel()))
+        {
+            return true;
+        }
+        return false;
     }
 
     @Override

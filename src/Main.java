@@ -160,17 +160,16 @@ public class Main
 
         // In the driver, generate 2 random assignments named assign1 and assign2
         Random rand= new Random();
-        Priority level = new Priority(rand.nextInt(4));
-        Priority level2 = new Priority(rand.nextInt(4));
-        Assignment assign1 = new Assignment(today, Course.CPSC, Category.PRESENTATION, level);
-        Assignment assign2 = new Assignment(tomorrow, Course.MATH, Category.HOMEWORK, level2);
+        Assignment assign1 = new Assignment(getRandomDate(), Course.CPSC, Category.PRESENTATION, new Priority(rand.nextInt(4)));
+        Assignment assign2 = new Assignment(getRandomDate(), Course.MATH, Category.HOMEWORK, new Priority(rand.nextInt(4)));
         System.out.println("\nassign1: " + assign1 + "\nassign2: " +assign2);
 
         // Copy assign1 to assign3
         Assignment assign3 = copyAssignToNew(assign1);
         System.out.println("\nassign3: " + assign3);
 
-        //todo Override an Assignment.equals() method
+        // Override an Assignment.equals() method
+        System.out.println("\nassign1.equals(assign3): " + assign1.equals(assign3) + "\nassign1.equals(assign2): " + assign1.equals(assign2));
 
         //todo Override an Assignment.compareTo() method then use it to output BEFORE, EQUALS, or AFTER based on the LocalDateTime
 
